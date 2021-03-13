@@ -138,14 +138,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103120017420_Inicial.cs" />
-    <Compile Include="Migrations\202103120017420_Inicial.Designer.cs">
-      <DependentUpon>202103120017420_Inicial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BlogArtigo.cs" />
-    <Compile Include="Models\BlogCategoria.cs" />
-    <Compile Include="Models\CrmContext.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,11 +191,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Blog\Create.cshtml" />
-    <Content Include="Views\Blog\Delete.cshtml" />
     <Content Include="Views\Blog\Details.cshtml" />
-    <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Teste\Create.cshtml" />
+    <Content Include="Views\Teste\Delete.cshtml" />
+    <Content Include="Views\Teste\Details.cshtml" />
+    <Content Include="Views\Teste\Edit.cshtml" />
+    <Content Include="Views\Teste\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -221,11 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103120017420_Inicial.resx">
-      <DependentUpon>202103120017420_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

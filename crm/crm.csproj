@@ -129,9 +129,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogArtigoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogCategoriaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\CrmContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,6 +163,16 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategoria\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategoria\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategoria\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategoria\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategoria\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogArtigo\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogArtigo\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogArtigo\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogArtigo\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogArtigo\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -183,6 +196,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Blog\Delete.cshtml" />
+    <Content Include="Views\Blog\Details.cshtml" />
+    <Content Include="Views\Blog\Edit.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

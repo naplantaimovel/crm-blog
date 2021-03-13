@@ -8,20 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using crm.Models;
 
-namespace crm.Controllers
+namespace crm.Areas.Admin.Controllers
 {
-    public class BlogController : Controller
+    public class BlogArtigoController : Controller
     {
         private CrmContext db = new CrmContext();
 
-        // GET: Blog
+        // GET: Admin/BlogArtigo
         public ActionResult Index()
         {
             var blogArtigos = db.BlogArtigos.Include(b => b.BlogCategoria);
             return View(blogArtigos.ToList());
         }
 
-        // GET: Blog/Details/5
+        // GET: Admin/BlogArtigo/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,14 +36,14 @@ namespace crm.Controllers
             return View(blogArtigo);
         }
 
-        // GET: Blog/Create
+        // GET: Admin/BlogArtigo/Create
         public ActionResult Create()
         {
             ViewBag.BlogCategoriaId = new SelectList(db.BlogCategorias, "BlogCategoriaId", "Categoria");
             return View();
         }
 
-        // POST: Blog/Create
+        // POST: Admin/BlogArtigo/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -61,7 +61,7 @@ namespace crm.Controllers
             return View(blogArtigo);
         }
 
-        // GET: Blog/Edit/5
+        // GET: Admin/BlogArtigo/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,7 +77,7 @@ namespace crm.Controllers
             return View(blogArtigo);
         }
 
-        // POST: Blog/Edit/5
+        // POST: Admin/BlogArtigo/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -94,7 +94,7 @@ namespace crm.Controllers
             return View(blogArtigo);
         }
 
-        // GET: Blog/Delete/5
+        // GET: Admin/BlogArtigo/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,7 +109,7 @@ namespace crm.Controllers
             return View(blogArtigo);
         }
 
-        // POST: Blog/Delete/5
+        // POST: Admin/BlogArtigo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

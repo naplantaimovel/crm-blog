@@ -8,114 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using crm.Models;
 
-namespace crm.Controllers
+namespace crm.Areas.Admin.Controllers
 {
-    public class BlogController : Controller
+    public class BlogCategoriaController : Controller
     {
         private CrmContext db = new CrmContext();
 
-        // GET: Blog
+        // GET: Admin/BlogCategoria
         public ActionResult Index()
         {
-            var blogArtigos = db.BlogArtigos.Include(b => b.BlogCategoria);
-            return View(blogArtigos.ToList());
+            return View(db.BlogCategorias.ToList());
         }
 
-        // GET: Blog/Details/5
+        // GET: Admin/BlogCategoria/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogArtigo blogArtigo = db.BlogArtigos.Find(id);
-            if (blogArtigo == null)
+            BlogCategoria blogCategoria = db.BlogCategorias.Find(id);
+            if (blogCategoria == null)
             {
                 return HttpNotFound();
             }
-            return View(blogArtigo);
+            return View(blogCategoria);
         }
 
-        // GET: Blog/Create
+        // GET: Admin/BlogCategoria/Create
         public ActionResult Create()
         {
-            ViewBag.BlogCategoriaId = new SelectList(db.BlogCategorias, "BlogCategoriaId", "Categoria");
             return View();
         }
 
-        // POST: Blog/Create
+        // POST: Admin/BlogCategoria/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BlogArtigoId,Titulo,Texto,BlogCategoriaId")] BlogArtigo blogArtigo)
+        public ActionResult Create([Bind(Include = "BlogCategoriaId,Categoria")] BlogCategoria blogCategoria)
         {
             if (ModelState.IsValid)
             {
-                db.BlogArtigos.Add(blogArtigo);
+                db.BlogCategorias.Add(blogCategoria);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BlogCategoriaId = new SelectList(db.BlogCategorias, "BlogCategoriaId", "Categoria", blogArtigo.BlogCategoriaId);
-            return View(blogArtigo);
+            return View(blogCategoria);
         }
 
-        // GET: Blog/Edit/5
+        // GET: Admin/BlogCategoria/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogArtigo blogArtigo = db.BlogArtigos.Find(id);
-            if (blogArtigo == null)
+            BlogCategoria blogCategoria = db.BlogCategorias.Find(id);
+            if (blogCategoria == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.BlogCategoriaId = new SelectList(db.BlogCategorias, "BlogCategoriaId", "Categoria", blogArtigo.BlogCategoriaId);
-            return View(blogArtigo);
+            return View(blogCategoria);
         }
 
-        // POST: Blog/Edit/5
+        // POST: Admin/BlogCategoria/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BlogArtigoId,Titulo,Texto,BlogCategoriaId")] BlogArtigo blogArtigo)
+        public ActionResult Edit([Bind(Include = "BlogCategoriaId,Categoria")] BlogCategoria blogCategoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blogArtigo).State = EntityState.Modified;
+                db.Entry(blogCategoria).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BlogCategoriaId = new SelectList(db.BlogCategorias, "BlogCategoriaId", "Categoria", blogArtigo.BlogCategoriaId);
-            return View(blogArtigo);
+            return View(blogCategoria);
         }
 
-        // GET: Blog/Delete/5
+        // GET: Admin/BlogCategoria/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogArtigo blogArtigo = db.BlogArtigos.Find(id);
-            if (blogArtigo == null)
+            BlogCategoria blogCategoria = db.BlogCategorias.Find(id);
+            if (blogCategoria == null)
             {
                 return HttpNotFound();
             }
-            return View(blogArtigo);
+            return View(blogCategoria);
         }
 
-        // POST: Blog/Delete/5
+        // POST: Admin/BlogCategoria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            BlogArtigo blogArtigo = db.BlogArtigos.Find(id);
-            db.BlogArtigos.Remove(blogArtigo);
+            BlogCategoria blogCategoria = db.BlogCategorias.Find(id);
+            db.BlogCategorias.Remove(blogCategoria);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

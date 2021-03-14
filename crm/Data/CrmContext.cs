@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using crm.Models;
 
 namespace crm.Data
 {
@@ -16,13 +15,19 @@ namespace crm.Data
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
+    
+        public CrmContext() : base("name=CrmContext")
+        {
+        }
 
-        public DbSet<Blog> Blogs { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<crm.Models.Blog> Blogs { get; set; }
+
+        public DbSet<crm.Models.BlogPost> BlogPosts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

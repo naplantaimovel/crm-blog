@@ -6,14 +6,8 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog.Texto)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Titulo)
         </th>
@@ -22,6 +16,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Autor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Img)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Data)
@@ -35,9 +32,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Blog.Texto)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Titulo)
         </td>
         <td>
@@ -47,15 +41,16 @@
             @Html.DisplayFor(modelItem => item.Autor)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Img)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Data)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BlogPostId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BlogPostId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BlogPostId })
+        <td>           
+            @Html.ActionLink("Leia Mais", "Post", new { id=item.BlogPostId, slug=item.Slug })           
         </td>
     </tr>
 }

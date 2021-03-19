@@ -13,7 +13,7 @@ namespace crm.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202103140037249_Blog"; }
+            get { return "202103151613347_Blog"; }
         }
         
         string IMigrationMetadata.Source

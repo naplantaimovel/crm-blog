@@ -1,21 +1,21 @@
 ﻿@model crm.Models.BlogPost
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
     <h4>BlogPost</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Blog.Texto)
+            @Html.DisplayNameFor(model => model.Slug)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Blog.Texto)
+            @Html.DisplayFor(model => model.Slug)
         </dd>
 
         <dt>
@@ -43,6 +43,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Data)
         </dt>
 
@@ -61,6 +69,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BlogPostId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Editar", new { id = Model.BlogPostId }) |
+    @Html.ActionLink("Voltar", "Index")
 </p>

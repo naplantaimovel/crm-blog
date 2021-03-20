@@ -1,4 +1,9 @@
-﻿@model IEnumerable<crm.Models.BlogPost>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<crm.Models.BlogPost>
+
+
+
 
 @{
     ViewBag.Title = "Index";
@@ -9,67 +14,112 @@
 <p>
     @Html.ActionLink("Criar Post", "Criar")
 </p>
+
+<p>
+    @using (Html.BeginForm("Index", "Blog", FormMethod.Get))
+    {
+        @Html.TextBox("q") <input type="submit" value="Procurar" />
+    }
+</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Img)
+            @Html.DisplayNameFor(model => model.First().Img)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Slug)
+            @Html.DisplayNameFor(model => model.First().Slug)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Titulo)
+            @Html.DisplayNameFor(model => model.First().Titulo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Texto)
+            @Html.DisplayNameFor(model => model.First().Texto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Autor)
+            @Html.DisplayNameFor(model => model.First().Autor)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Img)
+            @Html.DisplayNameFor(model => model.First().Img)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data)
+            @Html.DisplayNameFor(model => model.First().Data)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.First().Status)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="4">Nenhum registro foi encontrado com esse critério</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+
+                    @if (item.Img != null)
+                    {
+                        <img src="~/Image/Thumbnail/@item.Img" alt="@item.Titulo" class="img-thumbnail" width="200" />
+                    }
+                    else
+                    {
+                        <img src="~/Image/Default/preview.jpg" alt="Sem Foto" class="img-thumbnail" width="200" />
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Texto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Img)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.BlogPostId }) |
+                    @Html.ActionLink("Detalhes", "Detalhes", new { id = item.BlogPostId }) |
+                    @Html.ActionLink("Excluir", "Excluir", new { id = item.BlogPostId })
+                </td>
+            </tr>
+        }
+    }
+    
 <tr>
-    <td>
-        <img src="~/Image/Default/preview.jpg" class="img-thumbnail" />
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Slug)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Titulo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Texto)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Autor)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Img)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Data)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Editar", new { id = item.BlogPostId }) |
-        @Html.ActionLink("Detalhes", "Detalhes", new { id = item.BlogPostId }) |
-        @Html.ActionLink("Excluir", "Excluir", new { id = item.BlogPostId })
-    </td>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
 </tr>
-}
 
 </table>
+
+@Html.PagedListPager(Model, p => Url.Action("Index", new { p, q = Request.QueryString["q"] }),
+     new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded }
+    )
+

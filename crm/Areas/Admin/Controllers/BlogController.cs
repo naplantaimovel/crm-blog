@@ -11,6 +11,7 @@ using crm.Models;
 using SlugGenerator;
 using System.Web.Helpers;
 using System.IO;
+using PagedList;
 
 
 namespace crm.Areas.Admin.Controllers
@@ -20,10 +21,9 @@ namespace crm.Areas.Admin.Controllers
         private CrmContext db = new CrmContext();
 
         // GET: Admin/Blog
-        public ActionResult Index()
-        {           
-
-            return View(db.BlogPosts.ToList());
+        public ActionResult Index(string q, int? p)
+        {
+            return View(db.BlogPosts.Where(x => x.Titulo.StartsWith(q) || q == null).ToList().ToPagedList(p ?? 1, 5));
         }
 
         // GET: Admin/Blog/Detalhes/5
@@ -48,6 +48,7 @@ namespace crm.Areas.Admin.Controllers
         }
 
         // POST: Admin/Blog/Criar   
+        [HttpPost, ActionName("Criar")]
         [ValidateAntiForgeryToken]
         public ActionResult Criar([Bind(Include = "BlogPostId,Titulo,Texto,Autor,Data")] BlogPost blogPost, HttpPostedFileBase file)
         {
@@ -61,11 +62,17 @@ namespace crm.Areas.Admin.Controllers
                     file.SaveAs(_path);
 
                     WebImage wbImage = new WebImage("~/Image/" + _FileName);
-                    wbImage.Resize(300, 300);
+                    wbImage.Resize(990, 1000);
                     wbImage.Save(@"~/Image/" + _FileName);
+
+                    WebImage wbImageThumbnail = new WebImage("~/Image/" + _FileName);
+                    wbImageThumbnail.Resize(200, 1000);
+                    wbImageThumbnail.Save(@"~/Image/Thumbnail/" + _FileName);
+
+                    blogPost.Img = _FileName;
                 }
 
-                blogPost.Slug = blogPost.Titulo.GenerateSlug();
+                blogPost.Slug = blogPost.Titulo.GenerateSlug();                
                 blogPost.Status = 1;
 
                 db.BlogPosts.Add(blogPost);
@@ -145,6 +152,16 @@ namespace crm.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string Thumbnail(string img) {
+
+            if (img == null)
+            {
+                img = "preview.jpg";
+            }           
+
+            return img;        
         }
     }
 }

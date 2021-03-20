@@ -55,7 +55,7 @@ namespace crm.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                if (file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
                     string _FileName = blogPost.Titulo.GenerateSlug() + Path.GetExtension(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Image"), _FileName);
@@ -70,6 +70,10 @@ namespace crm.Areas.Admin.Controllers
                     wbImageThumbnail.Save(@"~/Image/Thumbnail/" + _FileName);
 
                     blogPost.Img = _FileName;
+                }
+                else {
+
+                    blogPost.Img = "preview.jpg";
                 }
 
                 blogPost.Slug = blogPost.Titulo.GenerateSlug();                
@@ -104,16 +108,37 @@ namespace crm.Areas.Admin.Controllers
         // POST: Admin/Blog/Editar/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar([Bind(Include = "BlogPostId,Titulo,Texto,Autor,Img,Data")] BlogPost blogPost, HttpPostedFileBase file)
+        public ActionResult Editar([Bind(Include = "BlogPostId,Titulo,Texto,Autor,Data")] BlogPost blogPost, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
-            {               
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    string _FileName = blogPost.Titulo.GenerateSlug() + Path.GetExtension(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Image"), _FileName);
+                    file.SaveAs(_path);
+
+                    WebImage wbImage = new WebImage("~/Image/" + _FileName);
+                    wbImage.Resize(990, 1000);
+                    wbImage.Save(@"~/Image/" + _FileName);
+
+                    WebImage wbImageThumbnail = new WebImage("~/Image/" + _FileName);
+                    wbImageThumbnail.Resize(200, 1000);
+                    wbImageThumbnail.Save(@"~/Image/Thumbnail/" + _FileName);
+
+                    blogPost.Img = _FileName;
+                }
+                else
+                {
+                    blogPost.Img = blogPost.Img;
+                }
 
                 blogPost.Slug = blogPost.Titulo.GenerateSlug();
                 blogPost.Status = 1;
 
                 db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(blogPost);
@@ -163,5 +188,15 @@ namespace crm.Areas.Admin.Controllers
 
             return img;        
         }
+
+        public void SelectPicture()
+        {
+            WebImage img = new WebImage("~/Image/preview.jpg");
+            img.Resize(200, 200);
+            img.FileName = "~/Image/preview.jpg";
+            img.Write();
+        }
+
+        
     }
 }

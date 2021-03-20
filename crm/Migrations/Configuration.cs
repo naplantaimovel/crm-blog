@@ -9,7 +9,7 @@ namespace crm.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "crm.Data.CrmContext";
         }
 
